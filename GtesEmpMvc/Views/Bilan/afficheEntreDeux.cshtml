@@ -1,0 +1,101 @@
+﻿@model GtesEmpMvc.ViewModel.ViewModelVM
+@{
+    Layout = null;
+}
+ @foreach(var entreprise in Model.allEntreprise)
+             {
+                <table>
+                    <tr>
+                        <td><b>Numm de l'Entreprise :</b></td>
+                        <td>@entreprise.numEntreprise</td>
+                    </tr>
+                    <tr>
+                        <td><b>Nom de l'Entreprise :</b></td>
+                        <td>@entreprise.Design</td>
+                    </tr>
+                    <tr>
+                        <td><b>Raison Sociale :</b></td>
+                        <td>@entreprise.raisonSociale</td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                    </tr>
+                </table>
+                    
+    
+             }
+
+     <table id="datatable" class="table table-striped table-bordered jambo_table bulk_action">       
+          <thead>
+              <th>Num Employe</th>
+              <th>Nom</th>
+              <th>Addresse</th>
+              <th>Salaire</th>
+          </thead>
+         <tbody>
+             @{
+                 Double somme = 0;
+                 int nombre = 0; 
+               }
+                  @foreach (var employe in Model.allEmploye)
+                    {
+                      <tr>
+                            <td>@employe.numEmploye</td>
+                            <td>@employe.nom</td>  
+                            <td>@employe.addresse</td>  
+                            <td>@employe.salaire <small>Ar</small></td> 
+                     </tr>                          
+                        somme += employe.salaire;
+                        nombre++;                                          
+                    }
+             <tr>
+                 <td><b>Nombre d'Employé:</b>
+
+                 </td><td colspan="4"><b>@nombre</b></td>
+
+             </tr>
+             <tr>
+                 <td><b>Salaire Globaux:</b>
+
+                 </td><td colspan="4"><b>@somme</b> Ar</td>
+
+             </tr>
+         </tbody>
+    </table>
+<table>
+    <tr>
+        <td><button class="btn btn-mini" id="imprimer" type="button">Imprimer</button></td>
+        <td></td>
+        <td> <div style="width:30px;height:30px;" id="load"></td>
+    </tr>
+</table>
+         
+
+</div>
+                        
+<script>
+    $("document").ready(function () {
+             $("#imprimer").click(function () {
+                 var a = $("#nomEntreprise").val();
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:61070/Bilan/imprimer?nomEntreprise=' + a,
+                beforeSend: function () {
+                    $('#load').append('<div class="cssload-thecube">' +
+	                '<div class="cssload-cube cssload-c1"></div>'+
+	                '<div class="cssload-cube cssload-c2"></div>'+
+	                '<div class="cssload-cube cssload-c4"></div>'+
+	                '<div class="cssload-cube cssload-c3"></div>'+
+                '</div>'+'Veuiller patienter SVP');
+                },
+                success: function (data) {
+                    $('#load').remove();
+                }
+            });
+        });
+    });
+
+</script>
+                

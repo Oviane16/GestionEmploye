@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+ 
+
+                @foreach (var entrerprise in Model)
+                    {
+                     <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 id="myModalLabel"><small>Modifiaction Entreprise</small></h3>
+            </div>
+
+
+            <div class="modal-body">
+                         <label for="designModal">Design:</label>
+                        <input id="designModal" name="design" value=@entrerprise.Design class="" type="text" placeholder="">
+                        <label for="raisonSocialeModal">Raison sociale:</label>
+                        <input id="raisonSocialeModal" value=@entrerprise.raisonSociale name="raisonSociale" class="" type="text" placeholder="">
+                        <label for="addresseModal">Addresse:</label>
+                        <input id="addresseModal" name="addresse" value=@entrerprise.addresse class="" type="text" placeholder="">
+                            </div>
+            <div class="modal-footer">
+              <button class="btn btn-mini" data-dismiss="modal">Annuler</button>
+              <button id="enregistrer" value=@entrerprise.id class="btn btn-mini btn-success" data-dismiss="modal">Enregistrer</button>
+</div>
+                    }
+
+<script>
+    $("document").ready(function () {
+        $("#enregistrer").click(function () {
+            var formdata =
+            {
+                Design: $("#designModal").val(),
+                raisonSociale: $("#raisonSocialeModal").val(),
+                addresse: $("#addresseModal").val(),
+                id: $("#enregistrer").val()
+            }
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:61070/Entreprise/enregistrerModifiaction',
+                data: formdata,
+                success: function (data) {
+                    $("#tbody").empty().hide();
+                    $("#tbody").append(data);
+                    $('#tbody').fadeIn(500);
+                }
+            });
+
+
+        });
+   
+    });
+
+</script>

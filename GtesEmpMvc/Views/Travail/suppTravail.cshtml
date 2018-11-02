@@ -1,0 +1,65 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+      
+            @foreach(var travail in Model)
+    {
+<tr>
+        <td>@travail.NumTravail</td>   
+    <td>@travail.Poste</td>
+    <td>@travail.NomEntreprise</td>  
+    <td>@travail.TauxH</td>  
+    <td>@travail.nbH</td>  
+    <td>@travail.Salaire</td>    
+ 
+
+                    <td>
+                        <button data-toggle="modal" href="#myModal" id="modifier" class="btn btn-mini btn-info" value="@travail.id" type="button">Modifier</button>
+                        <button class="btn btn-mini btn-danger" value="@travail.id" id="supp" type="button">Supprimer</button>
+                    </td>
+        </tr>
+    }
+<script>
+    $("document").ready(function () {
+        $("#datatable #tbody tr td #supp").click(function () {
+            var conf = confirm("Etes vous sûre ?");
+            if (conf) {
+                var formdata =
+               {
+                   id: $(this).val()
+               }
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:61070/Travail/suppTravail',
+                    data: formdata,
+                    success: function (data) {
+                        $("#tbody").empty().hide();
+                        $("#tbody").append(data);
+                        $('#tbody').fadeIn(500);
+                    }
+                });
+            }
+
+        });
+        $("#datatable #tbody tr td #modifier").click(function () {
+            $("#myModal").empty().hide();
+            var formdata =
+           {
+               id: $(this).val()
+           }
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:61070/Travail/modifierTravail',
+                data: formdata,
+                success: function (data) {
+                    $("#myModal").append(data);
+                    $('#myModal').fadeIn(500);
+                }
+            });
+        });
+
+    });
+</script>

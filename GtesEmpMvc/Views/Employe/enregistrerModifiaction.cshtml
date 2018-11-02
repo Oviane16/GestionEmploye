@@ -1,0 +1,68 @@
+﻿
+@{
+    Layout = null;
+}
+ @foreach (var employe in Model)
+             {
+     
+                <tr>
+                    <td>@employe.numEmploye</td>
+                    <td>@employe.nom</td>  
+                    <td>@employe.nomTravail</td>  
+                    <td>@employe.nomEntreprise</td>  
+                    <td>@employe.salaire</td>    
+                    <td>@employe.addresse</td> 
+                    <td>@employe.dateEmbauche</td>    
+
+                    <td>
+                                        <button data-toggle="modal" href="#myModal" id="modifier" class="btn btn-mini btn-info" value="@employe.id" type="button">Modifier</button>
+                                        <button class="btn btn-mini btn-danger" value="@employe.id" id="supp" type="button">Supprimer</button>
+                    </td>
+                 </tr>
+             }
+
+
+<script>
+    $("document").ready(function () {  
+  $("#datatable #tbody tr td #supp").click(function () {
+            var conf = confirm("Etes vous sûre ?");
+            if (conf) {
+                var formdata =
+               {
+                   id: $(this).val()
+               }
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:61070/Employe/suppEmploye',
+                    data: formdata,
+                    success: function (data) {
+                        $("#tbody").empty().hide();
+                        $("#tbody").append(data);
+                        $('#tbody').fadeIn(500);
+                    }
+                });
+            }
+
+       });
+	   
+	           $("#datatable #tbody tr td #modifier").click(function () {
+            $("#myModal").empty();
+            $("#myModal").append('<div class="loading"></div>');
+            $('#myModal').fadeIn(10);
+            var formdata =
+           {
+               id: $(this).val()
+           }
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:61070/Employe/modifierEmploye',
+                data: formdata,
+                success: function (data) {
+                    $("#myModal").empty().hide();
+                    $("#myModal").append(data);
+                    $('#myModal').fadeIn(10);
+                }
+            });
+        });
+		   });
+		   </script>

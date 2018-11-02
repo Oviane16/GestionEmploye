@@ -1,0 +1,87 @@
+﻿@{
+    Layout = null;
+}
+
+
+                
+            @foreach(var entreprise in Model)
+    {
+<tr>
+       <td>@entreprise.numEntreprise</td>
+        <td>@entreprise.Design</td>  
+                <td>@entreprise.raisonSociale</td>  
+                <td>@entreprise.addresse</td>  
+                    <td>
+                        <button data-toggle="modal" href="#myModal" id="modifier" class="btn btn-mini btn-info" value="@entreprise.id" type="button">Modifier</button>
+                        <button class="btn btn-mini btn-danger" value="@entreprise.id" id="supp" type="button">Supprimer</button>
+                    </td>
+        </tr>
+    }
+
+<script>
+    $("document").ready(function () {
+        $("#datatable #tbody tr td #supp").click(function () {
+            var conf = confirm("Etes vous sûre ?");
+            if (conf)
+            {
+                var formdata =
+               {
+                   id: $(this).val()
+               }
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:61070/Entreprise/suppEntreprise',
+                    data: formdata,
+                    success: function (data) {
+                        $("#tbody").empty().hide();
+                        $("#tbody").append(data);
+                        $('#tbody').fadeIn(500);
+                    }
+                });
+            }
+           
+        });
+
+        $("tr td #modifier").click(function () {
+            $("#myModal").empty().hide();
+            var formdata =
+           {
+               id: $(this).val()
+           }
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:61070/Entreprise/modifierEntreprise',
+                data: formdata,
+                success: function (data) {
+
+                    $("#myModal").append(data);
+                    $('#myModal').fadeIn(500);
+                }
+            });
+
+
+        });
+        $("#datatable #tbody tr td #modifier").click(function () {
+            $("#myModal").empty().hide();
+            var formdata =
+           {
+               id: $(this).val()
+           }
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:61070/Entreprise/modifierEntreprise',
+                data: formdata,
+                success: function (data) {
+
+                    $("#myModal").append(data);
+                    $('#myModal').fadeIn(500);
+                }
+            });
+
+
+        });
+
+   
+    });
+
+</script>

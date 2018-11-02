@@ -1,0 +1,58 @@
+﻿@model GtesEmpMvc.ViewModel.ViewModelVM
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+                                            var chart1;
+                                            jQuery(document).ready(function()
+                                            {
+                                                chart1 = new Highcharts.Chart({
+                                                    chart: {
+                                                        renderTo: 'graphe',
+                                                        type: 'line'
+                                                    },
+                                                    title: {
+                                                        text: 'Salaire global des employes'
+                                                    },
+                                                    subtitle: {
+                                                        text: ''
+                                                    },
+                                                    xAxis: {
+                                                           xAxis: {
+																categories: [
+																	'Janvier',
+																	'Fevrier',
+																	'Mars'
+																]
+															},
+                                                    yAxis: {
+                                                        title: {
+                                                            text: 'Salaire'
+                                                        }
+                                                    },
+                                                    plotOptions: {
+                                                        line: {
+                                                            dataLabels: {
+                                                                enabled: true
+                                                            },
+                                                            enableMouseTracking: false
+                                                        }
+                                                    },
+                                                    series: [{
+                                                        name: 'Nom Employe',
+                                                        data: [
+                                                             @foreach(var employe in Model.allEmploye)
+                                                            {
+                                                                @employe.salaire<text>,</text>
+                                                            }
+                                                        ]
+                                                        //data: [7.0, 6.9, 9.5, 14.5]
+                                                    }]
+                                                });
+                                            });
+                                        </script>
+<div id="graphe">
+
+</div>
+<button class="btn btn-mini" type="button">Imprimer</button>

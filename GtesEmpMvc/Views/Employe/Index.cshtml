@@ -1,0 +1,273 @@
+﻿@model GtesEmpMvc.ViewModel.ViewModelVM
+@{
+    ViewBag.Title = "ajoutEntreprise";
+}
+<script>
+    $("document").ready(function () {
+       $("#datatable #tbody tr td #supp").click(function () {
+            var conf = confirm("Etes vous sûre ?");
+            if (conf) {
+                var formdata =
+               {
+                   id: $(this).val()
+               }
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:61070/Employe/suppEmploye',
+                    data: formdata,
+                    success: function (data) {
+                        $("#tbody").empty().hide();
+                        $("#tbody").append(data);
+                        $('#tbody').fadeIn(500);
+                    }
+                });
+            }
+
+       });
+
+
+       $("#nomTravail").change(function () {
+                var formdata =
+               {
+                   nomTravail: $(this).val()
+               }
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:61070/Employe/getNomEntreprise',
+                    data: formdata,
+                    success: function (data) {
+                        $("#nomEntreprise").empty();
+                        $("#nomEntreprise").html(data);
+                        $('#nomEntreprise').fadeIn(0);
+                    }
+                });
+            
+        });
+
+        $("#ajouter").click(function () {
+            var formdata =
+           {
+               nom: $("#nom").val(),
+               adresse: $("#adresse").val(),
+               nomEntreprise: $("#nomEntreprise").val(),
+               nomTravail: $("#nomTravail").val()
+           }
+
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:61070/Employe/ajoutEmploye',
+                data: formdata,
+                success: function (data) {
+                    $("#tbody").empty().hide();
+                    $("#tbody").append(data);
+                    $('#tbody').fadeIn(500);
+                    $("#nom").val(''); $("#adresse").val('');
+                }
+            });
+
+        });
+        $("#datatable #tbody tr td #modifier").click(function () {
+            $("#myModal").empty();
+            $("#myModal").append('Patienter Svp');
+            $('#myModal').fadeIn(10);
+            var formdata =
+           {
+               id: $(this).val()
+           }
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:61070/Employe/modifierEmploye',
+                data: formdata,
+                success: function (data) {
+                    $("#myModal").empty().hide();
+                    $("#myModal").append(data);
+                    $('#myModal').fadeIn(10);
+                }
+            });
+        });
+       
+
+
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        var handleDataTableButtons = function () {
+            if ($("#datatable-buttons").length) {
+                $("#datatable-buttons").DataTable({
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            extend: "copy",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "csv",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "excel",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "pdfHtml5",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "print",
+                            className: "btn-sm"
+                        },
+                    ],
+                    responsive: true
+                });
+            }
+        };
+
+        TableManageButtons = function () {
+            "use strict";
+            return {
+                init: function () {
+                    handleDataTableButtons();
+                }
+            };
+        }();
+
+        $('#datatable').DataTable({
+            "ordering": false,
+            "language": {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                }
+            }
+        });
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({
+            keys: false
+        });
+
+        $('#datatable-responsive').DataTable();
+
+        $('#datatable-scroller').DataTable({
+            ajax: "js/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: false,
+            scroller: false
+        });
+
+        var table = $('#datatable-fixed-header').DataTable({
+            fixedHeader: true
+        });
+
+        TableManageButtons.init();
+    });
+</script>
+<div class="container">
+
+           <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         
+                 
+                   
+          </div>
+
+
+<form action="Entreprise/ajoutEntreprise" method="post">
+    <table>
+       
+            <td>  
+                 <label for="nom">Nom:</label> 
+                 <input id="nom" name="nom" class="" type="text" placeholder="">
+            </td>
+            <td>
+                    <label for="adresse">Adresse:</label>
+                    <input id="adresse" name="adresse" class="" type="text" placeholder="">
+            </td>
+            <td>
+                <label for="nomTravail">Poste</label>
+                <select id="nomTravail">
+                            <option>
+                                Choisir une Entrerprise
+                            </option>
+                         @foreach(var travail in Model.allTravail)
+                             {
+                                    <option>
+                                    @travail.Poste
+                                        </option>                 
+                             }
+                </select>             
+                            
+            </td>
+            <td>
+                <label for="nomEntreprise">Nom Entreprise</label>
+                <select id="nomEntreprise">
+
+                </select>
+            </td>
+            <td>                
+                 </br>
+      <button class="btn btn-success" id="ajouter" type="button">Ajouter</button>
+            </td>
+        </tr>
+    </table>
+
+       
+</form>
+
+
+
+ <table id="datatable" class="table table-bordered table-striped">
+        
+  <thead>
+      <th>Numero</th>
+      <th>Nom</th>
+      <th>Poste</th>
+      <th>Nom Entreprise</th>
+      <th>Salaire</th>
+      <th>Addresse</th>
+      <th>Date d'embauche</th>    
+      <th>Action</th>
+  </thead>
+  <tbody id="tbody">
+      
+            @foreach (var employe in Model.allEmploye)
+             {
+                <tr>
+                   
+                    <td>@employe.numEmploye</td>
+                    <td>@employe.nom</td>  
+                    <td>@employe.nomTravail</td>  
+                    <td>@employe.nomEntreprise</td>  
+                    <td>@employe.salaire</td>    
+                    <td>@employe.addresse</td> 
+                    <td>@employe.dateEmbauche</td>    
+
+                    <td>
+                                        <button data-toggle="modal" href="#myModal" id="modifier" class="btn btn-mini btn-info" value="@employe.id" type="button">Modifier</button>
+                                        <button class="btn btn-mini btn-danger" value="@employe.id" id="supp" type="button">Supprimer</button>
+                    </td>
+                 </tr>
+             }
+  </tbody>
+</table>
+
+
+    </div>
+   

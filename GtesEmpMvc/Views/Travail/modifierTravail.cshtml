@@ -1,0 +1,75 @@
+﻿@model GtesEmpMvc.ViewModel.ViewModelVM
+@{
+    Layout = null;
+}
+
+
+
+ 
+
+                @foreach (var travail in Model.allTravail)
+                    {
+                     <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 id="myModalLabel"><small>Modifiaction Travail</small></h3>
+            </div>
+
+
+            <div class="modal-body">
+                  
+                 <label for="posteModal">Poste:</label> 
+                 <input id="posteModal" value=@travail.Poste name="poste" class="" type="text" placeholder="">
+                 <label for="tauxHModal">Taux horaire:</label>
+                 <input id="tauxHModal" value=@travail.TauxH  name="tauxH" class="" type="number" placeholder="">
+                <label for="nbHModal">nb Heure:</label>
+                <input id="nbHModal" value=@travail.nbH  name="nbH" class="" type="number" placeholder="">
+                <label for="nomEntrepriseModal">Nom Entrerpise</label>
+                <select id="nomEntrepriseModal">
+                    <option>@travail.NomEntreprise</option>
+                        @foreach (var entreprise in Model.allEntreprise)
+                        {
+                            if (@entreprise.Design != @travail.NomEntreprise)
+                            {
+                            <option>
+                                @entreprise.Design
+                            </option>
+                            }
+                            
+                        }
+
+                </select>             
+             </div>
+            <div class="modal-footer">
+              <button class="btn btn-mini" data-dismiss="modal">Annuler</button>
+              <button id="enregistrer" value=@travail.id class="btn btn-mini btn-success" data-dismiss="modal">Enregistrer</button>
+</div>
+                    }
+
+<script>
+    $("document").ready(function () {
+        $("#enregistrer").click(function () {
+            var formdata =
+            {
+                poste: $("#posteModal").val(),
+                tauxH: $("#tauxHModal").val(),
+                nbH: $("#nbHModal").val(),
+                nomEntreprise: $("#nomEntrepriseModal").val(),
+                id: $("#enregistrer").val()
+            }
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:61070/Travail/enregistrerModifiaction',
+                data: formdata,
+                success: function (data) {
+                    $("#tbody").empty().hide();
+                    $("#tbody").append(data);
+                    $('#tbody').fadeIn(500);
+                }
+            });
+
+
+        });
+   
+    });
+
+</script>

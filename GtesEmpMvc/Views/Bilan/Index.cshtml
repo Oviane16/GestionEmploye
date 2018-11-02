@@ -1,0 +1,759 @@
+﻿@{
+    ViewBag.Title = "ajoutEntreprise";
+}
+<script>
+    $("document").ready(function () {
+        $("#nomEntreprise").change(function () {
+            var formdata =
+           {
+               nomEntreprise: $(this).val()
+           }
+            if ($("#nomEntreprise").val() != 'Selectionner un Entreprise')
+            {
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:61070/Bilan/getInfoAndList',
+                    data: formdata,
+                    success: function (data) {
+                        $("#result").empty();
+                        $("#result").append(data);
+                        $('#result').fadeIn(500);
+                    }
+                });
+
+            }
+         
+        }); 
+        $("#diagramme").click(function () {
+            var formdata =
+           {
+               nomEntreprise: $("#nomEntreprise").val()
+           }
+            if ($("#nomEntreprise").val() != 'Selectionner un Entreprise')
+            {
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:61070/Bilan/afficheDiagramme',
+                    data: formdata,
+                    success: function (data) {
+                        $("#result").empty();
+                        $("#result").append(data);
+                        $('#result').fadeIn(500);
+                    }
+                });
+            }
+        });
+        $("#afficher").click(function () {
+            var formdata =
+           {
+               start: $("#start").val(),
+               end: $("#end").val(),
+               nomEntreprise: $("#nomEntreprise").val()
+           }
+            if ($("#nomEntreprise").val() != 'Selectionner un Entreprise') {
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:61070/Bilan/afficheEntreDeux',
+                    data: formdata,
+                    success: function (data) {
+                        $("#result").empty();
+                        $("#result").append(data);
+                        $('#result').fadeIn(500);
+                    }
+                });
+            }
+        });
+        $("#dansUnMois").click(function () {
+            var formdata =
+           {
+               nomEntreprise: $("#nomEntreprise").val()
+           }
+            if ($("#nomEntreprise").val() != 'Selectionner un Entreprise') {
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:61070/Bilan/getInfoAndListMoi',
+                    data: formdata,
+                    success: function (data) {
+                        $("#result").empty();
+                        $("#result").append(data);
+                        $('#result').fadeIn(500);
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+
+
+
+
+        var handleDataTableButtons = function () {
+            if ($("#datatable-buttons").length) {
+                $("#datatable-buttons").DataTable({
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            extend: "copy",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "csv",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "excel",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "pdfHtml5",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "print",
+                            className: "btn-sm"
+                        },
+                    ],
+                    responsive: true
+                });
+            }
+        };
+
+        TableManageButtons = function () {
+            "use strict";
+            return {
+                init: function () {
+                    handleDataTableButtons();
+                }
+            };
+        }();
+
+        $('#datatable').DataTable({
+            "ordering": false,
+            "language": {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                }
+            }
+        });
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({
+            keys: false
+        });
+
+        $('#datatable-responsive').DataTable();
+
+        $('#datatable-scroller').DataTable({
+            ajax: "js/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: false,
+            scroller: false
+        });
+
+        var table = $('#datatable-fixed-header').DataTable({
+            fixedHeader: true
+        });
+
+        TableManageButtons.init();
+    });
+</script>
+<div class="container">
+
+           <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          
+          </div>
+            <p><small>Pour voir les details, selectionner un Entreprise</small></p>
+            
+           <div class="input-inline">
+               <div class="input-append">
+                <select name="nomEntreprise" id="nomEntreprise">
+                    <option>Selectionner un Entreprise</option>
+                    @foreach (var entreprise in Model)
+                    {
+                    <option>
+                        @entreprise.Design
+                    </option>
+                    }
+                </select>
+                <button class="btn  btn-info" id="actualiser" type="button">Actualiser</button>
+           </div>
+                   <input type="text" placeholder="Date debut" id="start" />
+                <script>
+                    $(function () {
+                        $('#start').datepicker();
+                    });
+                            </script>
+               <input placeholder="Datefin" type="text" id="end" />
+                   <script>
+                       $(function () {
+                           $('#end').datepicker();
+                       });
+                            </script>
+               <button type="button" id="afficher"  class="btn btn-mini btn-success">Afficher</button>
+               <button type="button"  class="btn btn-mini ">
+                   Dans une année
+               </button>
+               <button type="button" id="dansUnMois" class="btn btn-mini ">
+                   Dans un moi
+               </button>
+               <button type="button" id="diagramme" class="btn btn-mini ">
+                   Diagramme
+               </button>
+           
+              </div>
+  
+                <div id="result">
+            
+        </div>
+            
+        
+    
+</div>
+
+
+<style type="text/css">
+.cssload-thecube {
+	width: 73px;
+	height: 73px;
+	margin: 0 auto;
+	margin-top: 49px;
+	position: relative;
+	transform: rotateZ(45deg);
+		-o-transform: rotateZ(45deg);
+		-ms-transform: rotateZ(45deg);
+		-webkit-transform: rotateZ(45deg);
+		-moz-transform: rotateZ(45deg);
+}
+.cssload-thecube .cssload-cube {
+	position: relative;
+	transform: rotateZ(45deg);
+		-o-transform: rotateZ(45deg);
+		-ms-transform: rotateZ(45deg);
+		-webkit-transform: rotateZ(45deg);
+		-moz-transform: rotateZ(45deg);
+}
+.cssload-thecube .cssload-cube {
+	float: left;
+	width: 50%;
+	height: 50%;
+	position: relative;
+	transform: scale(1.1);
+		-o-transform: scale(1.1);
+		-ms-transform: scale(1.1);
+		-webkit-transform: scale(1.1);
+		-moz-transform: scale(1.1);
+}
+.cssload-thecube .cssload-cube:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(43,160,199);
+	animation: cssload-fold-thecube 2.76s infinite linear both;
+		-o-animation: cssload-fold-thecube 2.76s infinite linear both;
+		-ms-animation: cssload-fold-thecube 2.76s infinite linear both;
+		-webkit-animation: cssload-fold-thecube 2.76s infinite linear both;
+		-moz-animation: cssload-fold-thecube 2.76s infinite linear both;
+	transform-origin: 100% 100%;
+		-o-transform-origin: 100% 100%;
+		-ms-transform-origin: 100% 100%;
+		-webkit-transform-origin: 100% 100%;
+		-moz-transform-origin: 100% 100%;
+}
+.cssload-thecube .cssload-c2 {
+	transform: scale(1.1) rotateZ(90deg);
+		-o-transform: scale(1.1) rotateZ(90deg);
+		-ms-transform: scale(1.1) rotateZ(90deg);
+		-webkit-transform: scale(1.1) rotateZ(90deg);
+		-moz-transform: scale(1.1) rotateZ(90deg);
+}
+.cssload-thecube .cssload-c3 {
+	transform: scale(1.1) rotateZ(180deg);
+		-o-transform: scale(1.1) rotateZ(180deg);
+		-ms-transform: scale(1.1) rotateZ(180deg);
+		-webkit-transform: scale(1.1) rotateZ(180deg);
+		-moz-transform: scale(1.1) rotateZ(180deg);
+}
+.cssload-thecube .cssload-c4 {
+	transform: scale(1.1) rotateZ(270deg);
+		-o-transform: scale(1.1) rotateZ(270deg);
+		-ms-transform: scale(1.1) rotateZ(270deg);
+		-webkit-transform: scale(1.1) rotateZ(270deg);
+		-moz-transform: scale(1.1) rotateZ(270deg);
+}
+.cssload-thecube .cssload-c2:before {
+	animation-delay: 0.35s;
+		-o-animation-delay: 0.35s;
+		-ms-animation-delay: 0.35s;
+		-webkit-animation-delay: 0.35s;
+		-moz-animation-delay: 0.35s;
+}
+.cssload-thecube .cssload-c3:before {
+	animation-delay: 0.69s;
+		-o-animation-delay: 0.69s;
+		-ms-animation-delay: 0.69s;
+		-webkit-animation-delay: 0.69s;
+		-moz-animation-delay: 0.69s;
+}
+.cssload-thecube .cssload-c4:before {
+	animation-delay: 1.04s;
+		-o-animation-delay: 1.04s;
+		-ms-animation-delay: 1.04s;
+		-webkit-animation-delay: 1.04s;
+		-moz-animation-delay: 1.04s;
+}
+
+
+
+@@keyframes cssload-fold-thecube {
+	0%, 10% {
+		transform: perspective(136px) rotateX(-180deg);
+		opacity: 0;
+	}
+	25%,
+				75% {
+		transform: perspective(136px) rotateX(0deg);
+		opacity: 1;
+	}
+	90%,
+				100% {
+		transform: perspective(136px) rotateY(180deg);
+		opacity: 0;
+	}
+}
+
+@@-o-keyframes cssload-fold-thecube {
+	0%, 10% {
+		-o-transform: perspective(136px) rotateX(-180deg);
+		opacity: 0;
+	}
+	25%,
+				75% {
+		-o-transform: perspective(136px) rotateX(0deg);
+		opacity: 1;
+	}
+	90%,
+				100% {
+		-o-transform: perspective(136px) rotateY(180deg);
+		opacity: 0;
+	}
+}
+
+@@-ms-keyframes cssload-fold-thecube {
+	0%, 10% {
+		-ms-transform: perspective(136px) rotateX(-180deg);
+		opacity: 0;
+	}
+	25%,
+				75% {
+		-ms-transform: perspective(136px) rotateX(0deg);
+		opacity: 1;
+	}
+	90%,
+				100% {
+		-ms-transform: perspective(136px) rotateY(180deg);
+		opacity: 0;
+	}
+}
+
+@@-webkit-keyframes cssload-fold-thecube {
+	0%, 10% {
+		-webkit-transform: perspective(136px) rotateX(-180deg);
+		opacity: 0;
+	}
+	25%,
+				75% {
+		-webkit-transform: perspective(136px) rotateX(0deg);
+		opacity: 1;
+	}
+	90%,
+				100% {
+		-webkit-transform: perspective(136px) rotateY(180deg);
+		opacity: 0;
+	}
+}
+
+@@-moz-keyframes cssload-fold-thecube {
+	0%, 10% {
+		-moz-transform: perspective(136px) rotateX(-180deg);
+		opacity: 0;
+	}
+	25%,
+				75% {
+		-moz-transform: perspective(136px) rotateX(0deg);
+		opacity: 1;
+	}
+	90%,
+				100% {
+		-moz-transform: perspective(136px) rotateY(180deg);
+		opacity: 0;
+	}
+}    .windows8 {
+	position: relative;
+	width: 78px;
+	height:78px;
+	margin:auto;
+}
+
+.windows8 .wBall {
+	position: absolute;
+	width: 74px;
+	height: 74px;
+	opacity: 0;
+	transform: rotate(225deg);
+		-o-transform: rotate(225deg);
+		-ms-transform: rotate(225deg);
+		-webkit-transform: rotate(225deg);
+		-moz-transform: rotate(225deg);
+	animation: orbit 6.96s infinite;
+		-o-animation: orbit 6.96s infinite;
+		-ms-animation: orbit 6.96s infinite;
+		-webkit-animation: orbit 6.96s infinite;
+		-moz-animation: orbit 6.96s infinite;
+}
+
+.windows8 .wBall .wInnerBall{
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background: rgb(0,0,0);
+	left:0px;
+	top:0px;
+	border-radius: 10px;
+}
+
+.windows8 #wBall_1 {
+	animation-delay: 1.52s;
+		-o-animation-delay: 1.52s;
+		-ms-animation-delay: 1.52s;
+		-webkit-animation-delay: 1.52s;
+		-moz-animation-delay: 1.52s;
+}
+
+.windows8 #wBall_2 {
+	animation-delay: 0.3s;
+		-o-animation-delay: 0.3s;
+		-ms-animation-delay: 0.3s;
+		-webkit-animation-delay: 0.3s;
+		-moz-animation-delay: 0.3s;
+}
+
+.windows8 #wBall_3 {
+	animation-delay: 0.61s;
+		-o-animation-delay: 0.61s;
+		-ms-animation-delay: 0.61s;
+		-webkit-animation-delay: 0.61s;
+		-moz-animation-delay: 0.61s;
+}
+
+.windows8 #wBall_4 {
+	animation-delay: 0.91s;
+		-o-animation-delay: 0.91s;
+		-ms-animation-delay: 0.91s;
+		-webkit-animation-delay: 0.91s;
+		-moz-animation-delay: 0.91s;
+}
+
+.windows8 #wBall_5 {
+	animation-delay: 1.22s;
+		-o-animation-delay: 1.22s;
+		-ms-animation-delay: 1.22s;
+		-webkit-animation-delay: 1.22s;
+		-moz-animation-delay: 1.22s;
+}
+
+
+
+@@keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index:99;
+		transform: rotate(180deg);
+		animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		transform: rotate(300deg);
+		animation-timing-function: linear;
+		origin:0%;
+	}
+
+	30% {
+		opacity: 1;
+		transform:rotate(410deg);
+		animation-timing-function: ease-in-out;
+		origin:7%;
+	}
+
+	39% {
+		opacity: 1;
+		transform: rotate(645deg);
+		animation-timing-function: linear;
+		origin:30%;
+	}
+
+	70% {
+		opacity: 1;
+		transform: rotate(770deg);
+		animation-timing-function: ease-out;
+		origin:39%;
+	}
+
+	75% {
+		opacity: 1;
+		transform: rotate(900deg);
+		animation-timing-function: ease-out;
+		origin:70%;
+	}
+
+	76% {
+	opacity: 0;
+		transform:rotate(900deg);
+	}
+
+	100% {
+	opacity: 0;
+		transform: rotate(900deg);
+	}
+}
+
+@@-o-keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index:99;
+		-o-transform: rotate(180deg);
+		-o-animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		-o-transform: rotate(300deg);
+		-o-animation-timing-function: linear;
+		-o-origin:0%;
+	}
+
+	30% {
+		opacity: 1;
+		-o-transform:rotate(410deg);
+		-o-animation-timing-function: ease-in-out;
+		-o-origin:7%;
+	}
+
+	39% {
+		opacity: 1;
+		-o-transform: rotate(645deg);
+		-o-animation-timing-function: linear;
+		-o-origin:30%;
+	}
+
+	70% {
+		opacity: 1;
+		-o-transform: rotate(770deg);
+		-o-animation-timing-function: ease-out;
+		-o-origin:39%;
+	}
+
+	75% {
+		opacity: 1;
+		-o-transform: rotate(900deg);
+		-o-animation-timing-function: ease-out;
+		-o-origin:70%;
+	}
+
+	76% {
+	opacity: 0;
+		-o-transform:rotate(900deg);
+	}
+
+	100% {
+	opacity: 0;
+		-o-transform: rotate(900deg);
+	}
+}
+
+@@-ms-keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index:99;
+		-ms-transform: rotate(180deg);
+		-ms-animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		-ms-transform: rotate(300deg);
+		-ms-animation-timing-function: linear;
+		-ms-origin:0%;
+	}
+
+	30% {
+		opacity: 1;
+		-ms-transform:rotate(410deg);
+		-ms-animation-timing-function: ease-in-out;
+		-ms-origin:7%;
+	}
+
+	39% {
+		opacity: 1;
+		-ms-transform: rotate(645deg);
+		-ms-animation-timing-function: linear;
+		-ms-origin:30%;
+	}
+
+	70% {
+		opacity: 1;
+		-ms-transform: rotate(770deg);
+		-ms-animation-timing-function: ease-out;
+		-ms-origin:39%;
+	}
+
+	75% {
+		opacity: 1;
+		-ms-transform: rotate(900deg);
+		-ms-animation-timing-function: ease-out;
+		-ms-origin:70%;
+	}
+
+	76% {
+	opacity: 0;
+		-ms-transform:rotate(900deg);
+	}
+
+	100% {
+	opacity: 0;
+		-ms-transform: rotate(900deg);
+	}
+}
+
+@@-webkit-keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index:99;
+		-webkit-transform: rotate(180deg);
+		-webkit-animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		-webkit-transform: rotate(300deg);
+		-webkit-animation-timing-function: linear;
+		-webkit-origin:0%;
+	}
+
+	30% {
+		opacity: 1;
+		-webkit-transform:rotate(410deg);
+		-webkit-animation-timing-function: ease-in-out;
+		-webkit-origin:7%;
+	}
+
+	39% {
+		opacity: 1;
+		-webkit-transform: rotate(645deg);
+		-webkit-animation-timing-function: linear;
+		-webkit-origin:30%;
+	}
+
+	70% {
+		opacity: 1;
+		-webkit-transform: rotate(770deg);
+		-webkit-animation-timing-function: ease-out;
+		-webkit-origin:39%;
+	}
+
+	75% {
+		opacity: 1;
+		-webkit-transform: rotate(900deg);
+		-webkit-animation-timing-function: ease-out;
+		-webkit-origin:70%;
+	}
+
+	76% {
+	opacity: 0;
+		-webkit-transform:rotate(900deg);
+	}
+
+	100% {
+	opacity: 0;
+		-webkit-transform: rotate(900deg);
+	}
+}
+
+@@-moz-keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index:99;
+		-moz-transform: rotate(180deg);
+		-moz-animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		-moz-transform: rotate(300deg);
+		-moz-animation-timing-function: linear;
+		-moz-origin:0%;
+	}
+
+	30% {
+		opacity: 1;
+		-moz-transform:rotate(410deg);
+		-moz-animation-timing-function: ease-in-out;
+		-moz-origin:7%;
+	}
+
+	39% {
+		opacity: 1;
+		-moz-transform: rotate(645deg);
+		-moz-animation-timing-function: linear;
+		-moz-origin:30%;
+	}
+
+	70% {
+		opacity: 1;
+		-moz-transform: rotate(770deg);
+		-moz-animation-timing-function: ease-out;
+		-moz-origin:39%;
+	}
+
+	75% {
+		opacity: 1;
+		-moz-transform: rotate(900deg);
+		-moz-animation-timing-function: ease-out;
+		-moz-origin:70%;
+	}
+
+	76% {
+	opacity: 0;
+		-moz-transform:rotate(900deg);
+	}
+
+	100% {
+	opacity: 0;
+		-moz-transform: rotate(900deg);
+	}
+}
+</style>

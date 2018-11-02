@@ -1,0 +1,109 @@
+﻿@model GtesEmpMvc.ViewModel.ViewModelVM
+@{
+    Layout = null;
+}
+
+
+
+ 
+
+                @foreach (var employe in Model.allEmploye)
+                    {
+                     <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 id="myModalLabel"><small>Modifiaction Employe</small></h3>
+            </div>
+
+
+            <div class="modal-body">
+                  
+                 <label for="nomModal">Nom:</label> 
+                 <input id="nomModal" value=@employe.nom name="poste" class="" type="text" placeholder="">
+                 <label for="adresseModal">Adresse:</label>
+                 <input id="adresseModal" value=@employe.addresse  name="tauxH" class="" type="text" placeholder="">
+
+                 <label for="nomTravailModal">Poste</label>
+                <select id="nomTravailModal">
+                    <option>@employe.nomTravail</option>
+                        @foreach (var travail in Model.allTravail)
+                        {
+                            if (@travail.Poste != @employe.nomTravail)
+                            {
+                            <option>
+                                @travail.Poste
+                            </option>
+                            }
+                            
+                        }
+
+                </select> 
+
+                <label for="nomEntrepriseModal">Nom Entrerpise</label>
+                <select id="nomEntrepriseModal">
+                    <option>@employe.nomEntreprise</option>
+                        @foreach (var entreprise in Model.allEntreprise)
+                        {
+                            if (@entreprise.Design != @employe.nomEntreprise)
+                            {
+                            <option>
+                                @entreprise.Design
+                            </option>
+                            }
+                            
+                        }
+
+                </select>             
+             </div>
+            <div class="modal-footer">
+              <button class="btn btn-mini" data-dismiss="modal">Annuler</button>
+              <button id="enregistrer" value=@employe.id class="btn btn-mini btn-success" data-dismiss="modal">Enregistrer</button>
+</div>
+                    }
+
+<script>
+    $("document").ready(function () {
+        $("#enregistrer").click(function () {
+
+            var formdata =
+            {
+                nom: $("#nomModal").val(),
+                adresse: $("#adresseModal").val(),
+                nomTravail: $("#nomTravailModal").val(),
+                nomEntreprise: $("#nomEntrepriseModal").val(),
+                id: $("#enregistrer").val()
+
+            }
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:61070/Employe/enregistrerModifiaction',
+                data: formdata,
+                success: function (data) {
+                    $("#tbody").empty().hide();
+                    $("#tbody").append(data);
+                    $('#tbody').fadeIn(10);
+                }
+            });
+
+
+        });
+        $("#nomTravailModal").change(function () {
+            var formdata =
+           {
+               nomTravail: $(this).val()
+           }
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:61070/Employe/getNomEntreprise',
+                data: formdata,
+                success: function (data) {
+                    $("#nomEntrepriseModal").empty();
+                    $("#nomEntrepriseModal").html(data);
+                    $('#nomEntrepriseModal').fadeIn(10);
+                }
+            });
+
+        });
+   
+    });
+
+</script>

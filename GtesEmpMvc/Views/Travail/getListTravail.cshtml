@@ -1,0 +1,169 @@
+﻿@{
+    Layout = null;
+}
+
+<script>
+    $(document).ready(function () {
+        $("#datatable #tbody tr td #supp").click(function () {
+            var conf = confirm("Etes vous sûre ?");
+            if (conf) {
+                var formdata =
+               {
+                   id: $(this).val()
+               }
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:61070/Travail/suppTravail',
+                    data: formdata,
+                    success: function (data) {
+                        $("#tableau").empty().hide();
+                        $("#tableau").append(data);
+                        $('#tableau').fadeIn(500);
+                    }
+                });
+            }
+
+        });
+        $("#datatable #tbody tr td #modifier").click(function () {
+            $("#myModal").empty().hide();
+            var formdata =
+           {
+               id: $(this).val()
+           }
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:61070/Travail/modifierTravail',
+                data: formdata,
+                success: function (data) {
+                    $("#myModal").append(data);
+                    $('#myModal').fadeIn(500);
+                    $.ajax({
+                        type: 'get',
+                        url: 'http://localhost:61070/Travail/getListNomEnt',
+                        success: function (data) {
+                            $('#nomEntreprise').empty();
+                            $('#nomEntreprise').html(data);
+                        }
+                    });
+                }
+            });
+        });
+
+        var handleDataTableButtons = function () {
+            if ($("#datatable-buttons").length) {
+                $("#datatable-buttons").DataTable({
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            extend: "copy",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "csv",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "excel",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "pdfHtml5",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "print",
+                            className: "btn-sm"
+                        },
+                    ],
+                    responsive: true
+                });
+            }
+        };
+
+        TableManageButtons = function () {
+            "use strict";
+            return {
+                init: function () {
+                    handleDataTableButtons();
+                }
+            };
+        }();
+
+        $('#datatable').DataTable({
+            "language": {
+                "sProcessing": "Traitement en cours...",
+                "sSearch": "Rechercher&nbsp;:",
+                "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix": "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst": "Premier",
+                    "sPrevious": "Pr&eacute;c&eacute;dent",
+                    "sNext": "Suivant",
+                    "sLast": "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                }
+            }
+        });
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({
+            keys: false
+        });
+
+        $('#datatable-responsive').DataTable();
+
+        $('#datatable-scroller').DataTable({
+            ajax: "js/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: false,
+            scroller: false
+        });
+
+        var table = $('#datatable-fixed-header').DataTable({
+            fixedHeader: true
+        });
+
+        TableManageButtons.init();
+    });
+</script>
+<table id="datatable" class="table table-striped jambo_table bulk_action">
+        
+  <thead>
+      <th>Poste</th>
+      <th>Nom Entreprise</th>
+      <th>Taux horaire</th>
+      <th>Nombre Heure</th>
+      <th>Salaire</th>
+      <th>Numero Travail</th>
+      <th>Action</th>
+      
+  </thead>
+  <tbody id="tbody">
+      
+            @foreach(var travail in Model)
+    {
+<tr>
+    <td>@travail.Poste</td>
+    <td>@travail.NomEntreprise</td>  
+    <td>@travail.TauxH</td>  
+    <td>@travail.nbH</td>  
+    <td>@travail.Salaire</td>    
+    <td>@travail.NumTravail</td>    
+
+                    <td>
+                        <button data-toggle="modal" href="#myModal" id="modifier" class="btn btn-mini btn-info" value="@travail.id" type="button">Modifier</button>
+                        <button class="btn btn-mini btn-danger" value="@travail.id" id="supp" type="button">Supprimer</button>
+                    </td>
+        </tr>
+    }
+  </tbody>
+</table>

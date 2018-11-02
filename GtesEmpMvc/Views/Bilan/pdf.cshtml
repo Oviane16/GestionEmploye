@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "ajoutEntreprise";
+}
+
+  <thead>
+      <th>Numero</th>
+      <th>Nom</th>
+      <th>Poste</th>
+      <th>Nom Entreprise</th>
+      <th>Salaire</th>
+      <th>Addresse</th>
+      <th>Date d'embauche</th>    
+      <th>Action</th>
+  </thead>
+  <tbody id="tbody">
+      
+            @foreach (var employe in Model)
+             {
+                <tr>
+                    <td>@employe.numEmploye</td>
+                    <td>@employe.nom</td>  
+                    <td>@employe.nomTravail</td>  
+                    <td>@employe.nomEntreprise</td>  
+                    <td>@employe.salaire</td>    
+                    <td>@employe.addresse</td> 
+                    <td>@employe.dateEmbauche</td>    
+
+                    <td>
+                                        <button data-toggle="modal" href="#myModal" id="modifier" class="btn btn-mini btn-info" value="@employe.id" type="button">Modifier</button>
+                                        <button class="btn btn-mini btn-danger" value="@employe.id" id="supp" type="button">Supprimer</button>
+                    </td>
+                 </tr>
+             }
+  </tbody>
+</table>

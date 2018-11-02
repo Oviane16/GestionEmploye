@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E7C49BD4-4C19-456F-B4BA-6B203786188D}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GtesEmpMvc</RootNamespace>
+    <AssemblyName>GtesEmpMvc</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DotNet.Highcharts">
+      <HintPath>..\packages\DotNet.Highcharts.4.0\lib\DotNet.Highcharts.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\packages\iTextSharp.5.0.6\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Application\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="mysql.data.entity, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Application\mysql.data.entity.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorPDF">
+      <HintPath>..\packages\RazorPDF.1.0.0\lib\net45\RazorPDF.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa">
+      <HintPath>..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AccueilController.cs" />
+    <Compile Include="Controllers\BilanController.cs" />
+    <Compile Include="Controllers\EmployeController.cs" />
+    <Compile Include="Controllers\EntrepriseController.cs" />
+    <Compile Include="Controllers\TravailController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employe.cs" />
+    <Compile Include="Models\Entreprise.cs" />
+    <Compile Include="Models\Repository.cs" />
+    <Compile Include="Models\Travail.cs" />
+    <Compile Include="Models\ViewModelDemoVM.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\ViewModelVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Bootstrap\assets\css\bootstrap-responsive.css" />
+    <Content Include="Bootstrap\assets\css\bootstrap.css" />
+    <Content Include="Bootstrap\assets\css\bootstrap.min.css" />
+    <Content Include="Bootstrap\assets\css\buttons.bootstrap.css" />
+    <Content Include="Bootstrap\assets\css\buttons.bootstrap.min.css" />
+    <Content Include="Bootstrap\assets\css\dataTables.bootstrap.css" />
+    <Content Include="Bootstrap\assets\css\dataTables.bootstrap.min.css" />
+    <Content Include="Bootstrap\assets\css\docs.css" />
+    <Content Include="Bootstrap\assets\css\fixedHeader.bootstrap.css" />
+    <Content Include="Bootstrap\assets\css\fixedHeader.bootstrap.min.css" />
+    <Content Include="Bootstrap\assets\css\scroller.bootstrap.css" />
+    <Content Include="Bootstrap\assets\css\scroller.bootstrap.min.css" />
+    <Content Include="Bootstrap\assets\ico\apple-touch-icon-114-precomposed.png" />
+    <Content Include="Bootstrap\assets\ico\apple-touch-icon-144-precomposed.png" />
+    <Content Include="Bootstrap\assets\ico\apple-touch-icon-57-precomposed.png" />
+    <Content Include="Bootstrap\assets\ico\apple-touch-icon-72-precomposed.png" />
+    <Content Include="Bootstrap\assets\ico\favicon.ico" />
+    <Content Include="Bootstrap\assets\ico\favicon.png" />
+    <Content Include="Bootstrap\assets\img\bootstrap-docs-readme.png" />
+    <Content Include="Bootstrap\assets\img\bootstrap-mdo-sfmoma-01.jpg" />
+    <Content Include="Bootstrap\assets\img\bootstrap-mdo-sfmoma-02.jpg" />
+    <Content Include="Bootstrap\assets\img\bootstrap-mdo-sfmoma-03.jpg" />
+    <Content Include="Bootstrap\assets\img\bs-docs-bootstrap-features.png" />
+    <Content Include="Bootstrap\assets\img\bs-docs-masthead-pattern.png" />
+    <Content Include="Bootstrap\assets\img\bs-docs-responsive-illustrations.png" />
+    <Content Include="Bootstrap\assets\img\bs-docs-twitter-github.png" />
+    <Content Include="Bootstrap\assets\img\example-sites\8020select.png" />
+    <Content Include="Bootstrap\assets\img\example-sites\adoptahydrant.png" />
+    <Content Include="Bootstrap\assets\img\example-sites\breakingnews.png" />
+    <Content Include="Bootstrap\assets\img\example-sites\fleetio.png" />
+    <Content Include="Bootstrap\assets\img\example-sites\gathercontent.png" />
+    <Content Include="Bootstrap\assets\img\example-sites\jshint.png" />
+    <Content Include="Bootstrap\assets\img\example-sites\kippt.png" />
+    <Content Include="Bootstrap\assets\img\example-sites\soundready.png" />
+    <Content Include="Bootstrap\assets\img\examples\bootstrap-example-carousel.png" />
+    <Content Include="Bootstrap\assets\img\examples\bootstrap-example-fluid.png" />
+    <Content Include="Bootstrap\assets\img\examples\bootstrap-example-justified-nav.png" />
+    <Content Include="Bootstrap\assets\img\examples\bootstrap-example-marketing-narrow.png" />
+    <Content Include="Bootstrap\assets\img\examples\bootstrap-example-marketing.png" />
+    <Content Include="Bootstrap\assets\img\examples\bootstrap-example-signin.png" />
+    <Content Include="Bootstrap\assets\img\examples\bootstrap-example-starter.png" />
+    <Content Include="Bootstrap\assets\img\examples\bootstrap-example-sticky-footer.png" />
+    <Content Include="Bootstrap\assets\img\examples\browser-icon-chrome.png" />
+    <Content Include="Bootstrap\assets\img\examples\browser-icon-firefox.png" />
+    <Content Include="Bootstrap\assets\img\examples\browser-icon-safari.png" />
+    <Content Include="Bootstrap\assets\img\examples\slide-01.jpg" />
+    <Content Include="Bootstrap\assets\img\examples\slide-02.jpg" />
+    <Content Include="Bootstrap\assets\img\examples\slide-03.jpg" />
+    <Content Include="Bootstrap\assets\img\glyphicons-halflings-white.png" />
+    <Content Include="Bootstrap\assets\img\glyphicons-halflings.png" />
+    <Content Include="Bootstrap\assets\img\grid-baseline-20px.png" />
+    <Content Include="Bootstrap\assets\img\less-logo-large.png" />
+    <Content Include="Bootstrap\assets\img\loading.gif" />
+    <Content Include="Bootstrap\assets\img\responsive-illustrations.png" />
+    <Content Include="Bootstrap\assets\js\application.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-affix.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-alert.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-button.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-carousel.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-collapse.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-dropdown.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-modal.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-popover.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-scrollspy.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-tab.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-tooltip.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-transition.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-typeahead.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap.min.js" />
+    <Content Include="Bootstrap\assets\js\dataTables.bootstrap.js" />
+    <Content Include="Bootstrap\assets\js\dataTables.bootstrap.min.js" />
+    <Content Include="Bootstrap\assets\js\dataTables.buttons.min.js" />
+    <Content Include="Bootstrap\assets\js\fastclick.js" />
+    <Content Include="Bootstrap\assets\js\google-code-prettify\prettify.css" />
+    <Content Include="Bootstrap\assets\js\google-code-prettify\prettify.js" />
+    <Content Include="Bootstrap\assets\js\highcharts.js" />
+    <Content Include="Bootstrap\assets\js\bootstrap-datepicker.js" />
+    <Content Include="Bootstrap\assets\js\holder\holder.js" />
+    <Content Include="Bootstrap\assets\js\html5shiv.js" />
+    <Content Include="Bootstrap\assets\js\jquery.dataTables.js" />
+    <Content Include="Bootstrap\assets\js\jquery.dataTables.min.js" />
+    <Content Include="Bootstrap\assets\js\jquery.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\adapters\standalone-framework.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\adapters\standalone-framework.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\highcharts-3d.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\highcharts-3d.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\highcharts-all.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\highcharts-more.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\highcharts-more.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\highcharts.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\highcharts.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\canvas-tools.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\canvas-tools.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\data.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\data.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\drilldown.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\drilldown.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\exporting.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\exporting.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\funnel.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\funnel.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\heatmap.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\heatmap.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\no-data-to-display.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\no-data-to-display.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\solid-gauge.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\modules\solid-gauge.src.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\themes\dark-blue.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\themes\dark-green.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\themes\dark-unica.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\themes\gray.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\themes\grid-light.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\themes\grid.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\themes\sand-signika.js" />
+    <Content Include="Scripts\Highcharts-4.0.1\js\themes\skies.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="pdf\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Accueil\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bootstrap\assets\ico\Thumbs.db" />
+    <Content Include="Bootstrap\assets\img\example-sites\Thumbs.db" />
+    <Content Include="Bootstrap\assets\img\examples\Thumbs.db" />
+    <Content Include="Bootstrap\assets\img\Thumbs.db" />
+    <Content Include="Bootstrap\assets\js\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Entreprise\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Entreprise\ajoutEntreprise.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_ajax.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\View1.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Entreprise\test.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Entreprise\suppEntreprise.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\backup\ajoutEntreprise.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Entreprise\modifierEntreprise.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Entreprise\enregistrerModifiaction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Travail\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Travail\getListTravail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Travail\ajoutTravail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Travail\suppTravail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Travail\modifierTravail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Travail\getListNomEnt.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\backup\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Travail\enregistrerModifiaction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Employe\getNomEntreprise.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Employe\ajoutEmploye.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bilan\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bilan\getInfoAndList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Employe\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bilan\afficheDiagramme.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Browsers\qt.browser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bilan\degage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bilan\imprimerAction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Employe\modifierEmploye.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Employe\enregistrerModifiaction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Employe\suppEmploye.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Accueil\getGif.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bilan\getInfoAndListMoi.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bilan\date.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bilan\imprimer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bilan\pdf.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Employe\test.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bilan\afficheEntreDeux.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:61070/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
